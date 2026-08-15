@@ -156,7 +156,6 @@ const assetImage = (source) => new Promise((resolve) => {
   image.src = source;
 });
 
-const psdLogoPromise = assetImage('assets/psd-logo-texto-branco.png');
 const fnbLogoPromise = assetImage('assets/fnb-logo.webp');
 
 const drawCoverPhoto = (context, image, centerX, centerY, radius, zoom = 1) => {
@@ -199,7 +198,7 @@ const drawLogoContained = (context, image, x, y, maxWidth, maxHeight) => {
   context.drawImage(image, x + (maxWidth - width) / 2, y + (maxHeight - height) / 2, width, height);
 };
 
-const drawTemplateOne = (context, photo, psdLogo, fnbLogo, zoom) => {
+const drawTemplateOne = (context, photo, fnbLogo, zoom) => {
   const gradient = context.createLinearGradient(0, 0, 1080, 1080);
   gradient.addColorStop(0, '#061a32');
   gradient.addColorStop(.55, '#0a355d');
@@ -225,11 +224,10 @@ const drawTemplateOne = (context, photo, psdLogo, fnbLogo, zoom) => {
   context.fillStyle = '#f7b918';
   context.font = 'italic 700 54px Georgia';
   context.fillText('SENADOR • DISTRITO FEDERAL', 540, 995);
-  drawLogoContained(context, psdLogo, 55, 705, 150, 82);
   drawLogoContained(context, fnbLogo, 860, 710, 165, 76);
 };
 
-const drawTemplateTwo = (context, photo, psdLogo, fnbLogo, zoom) => {
+const drawTemplateTwo = (context, photo, fnbLogo, zoom) => {
   context.fillStyle = '#f7b918';
   context.fillRect(0, 0, 1080, 1080);
   const gradient = context.createRadialGradient(540, 460, 120, 540, 520, 760);
@@ -254,17 +252,16 @@ const drawTemplateTwo = (context, photo, psdLogo, fnbLogo, zoom) => {
   context.fillStyle = '#f7b918';
   context.font = '900 66px Arial';
   context.fillText('RONALDO SENADOR', 540, 963);
-  drawLogoContained(context, psdLogo, 135, 685, 150, 78);
   drawLogoContained(context, fnbLogo, 795, 691, 150, 70);
 };
 
 const renderSupportImage = async () => {
   if (!supportContext || !supporterPhoto) return;
-  const [psdLogo, fnbLogo] = await Promise.all([psdLogoPromise, fnbLogoPromise]);
+  const fnbLogo = await fnbLogoPromise;
   supportContext.clearRect(0, 0, 1080, 1080);
   const zoom = Number(zoomInput?.value || 1);
-  if (activeTemplate === '1') drawTemplateOne(supportContext, supporterPhoto, psdLogo, fnbLogo, zoom);
-  else drawTemplateTwo(supportContext, supporterPhoto, psdLogo, fnbLogo, zoom);
+  if (activeTemplate === '1') drawTemplateOne(supportContext, supporterPhoto, fnbLogo, zoom);
+  else drawTemplateTwo(supportContext, supporterPhoto, fnbLogo, zoom);
 };
 
 supportPhotoInput?.addEventListener('change', (event) => {
