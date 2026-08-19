@@ -211,7 +211,7 @@ const drawTemplateOne = (context, photo, fnbLogo, zoom) => {
     context.arc(90 + i * 105, 100 + (i % 3) * 350, 70 + (i % 4) * 20, 0, Math.PI * 2);
     context.fill();
   }
-  drawArcText(context, 'EU APOIO RONALDO FONSECA', 540, 510, 452, Math.PI * 1.12, Math.PI * 1.88, '700 42px Arial', '#ffffff');
+  drawArcText(context, 'EU APOIO', 540, 510, 452, Math.PI * 1.3, Math.PI * 1.7, '700 48px Arial', '#ffffff');
   context.beginPath();
   context.arc(540, 515, 342, 0, Math.PI * 2);
   context.fillStyle = '#f7b918';
@@ -248,10 +248,12 @@ const drawTemplateTwo = (context, photo, fnbLogo, zoom) => {
   context.fillStyle = '#ffffff';
   context.textAlign = 'center';
   context.font = '900 44px Arial';
-  context.fillText('EU APOIO', 540, 895);
+  context.fillText('EU APOIO', 540, 892);
   context.fillStyle = '#f7b918';
-  context.font = '900 66px Arial';
-  context.fillText('RONALDO FONSECA SENADOR', 540, 963);
+  context.font = '900 64px Arial';
+  context.fillText('RONALDO FONSECA', 540, 948);
+  context.font = '900 30px Arial';
+  context.fillText('SENADOR • DISTRITO FEDERAL', 540, 982);
   drawLogoContained(context, fnbLogo, 795, 691, 150, 70);
 };
 
